@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# notme — remove the Claude Code US-timezone wrapper from your shell profile.
+# notme — remove the Claude Code timezone wrapper from your shell profile.
 set -eu
+# Match the legacy marker text retained by install.sh.
 MARK_BEGIN="# >>> notme: force US timezone for Claude Code >>>"
 MARK_END="# <<< notme: force US timezone for Claude Code <<<"
 

@@ -1,19 +1,20 @@
-# notme — force a US timezone for Claude Code (CLI) on Windows PowerShell.
+# notme — set the Claude Code (CLI) timezone in PowerShell (Tokyo by default).
 #
 # Claude Code is a Node process: it reports the OS timezone (via the TZ env var)
 # in its system prompt. This adds a `claude` wrapper to your PowerShell profile
-# so `claude` runs with TZ set to a US zone, while the rest of your session keeps
+# so `claude` runs with TZ set to the chosen zone, while the rest of your session keeps
 # its real timezone.
 #
 # Usage:
 #   powershell -ExecutionPolicy Bypass -File .\install.ps1
-#   powershell -ExecutionPolicy Bypass -File .\install.ps1 America/New_York
+#   powershell -ExecutionPolicy Bypass -File .\install.ps1 Asia/Tokyo
 #
 # Re-running is safe (it replaces the previous block). WSL users: use install.sh
 # inside WSL instead.
-param([string]$Tz = "America/Los_Angeles")
+param([string]$Tz = "Asia/Tokyo")
 $ErrorActionPreference = "Stop"
 
+# Keep legacy marker text so existing installations are replaced cleanly.
 $begin = "# >>> notme: force US timezone for Claude Code >>>"
 $end   = "# <<< notme: force US timezone for Claude Code <<<"
 

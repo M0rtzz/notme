@@ -209,14 +209,14 @@ navigator.geolocation.getCurrentPosition(console.log, console.error)
 
 ## Claude Code（终端）：另一条独立的时区通道
 
-上面的浏览器扩展伪装的是**浏览器**时区。**Claude Code** 终端是另一个进程,它报告的是**操作系统时区**(通过 `TZ` 环境变量)—— 浏览器扩展**碰不到它**。要让 Claude Code 呈现美国时区,用 [`tools/claude-tz/`](./tools/claude-tz/) 里的脚本装一个 `claude` 包装器:
+上面的浏览器扩展伪装的是**浏览器**时区。**Claude Code** 终端是另一个进程,它报告的是**操作系统时区**(通过 `TZ` 环境变量)—— 浏览器扩展**碰不到它**。要让 Claude Code 呈现日本东京时区（`Asia/Tokyo`，UTC+09:00）,用 [`tools/claude-tz/`](./tools/claude-tz/) 里的脚本装一个 `claude` 包装器:
 
 ```bash
 cd tools/claude-tz && bash install.sh          # macOS / Linux / WSL（zsh/bash/fish）
 # Windows PowerShell:  powershell -ExecutionPolicy Bypass -File .\install.ps1
 ```
 
-它只包装 `claude` 这一个命令,不影响你 shell 里的其他东西。逐个 shell 的手动写法、其它美国时区、以及重要提醒(它只改"报告的时区",改不了你的出口 IP)见 [tools/claude-tz/README.md](./tools/claude-tz/README.md)。你需要哪条通道:
+它只包装 `claude` 这一个命令,默认使用东京时区,不影响你 shell 里的其他东西。逐个 shell 的手动写法、其它可选时区、以及重要提醒(它只改"报告的时区",改不了你的出口 IP)见 [tools/claude-tz/README.md](./tools/claude-tz/README.md)。你需要哪条通道:
 
 | 你用 | 时区来自 | 用什么修 |
 | --- | --- | --- |

@@ -1,21 +1,22 @@
 #!/usr/bin/env bash
-# notme — force a US timezone for Claude Code (CLI).
+# notme — set the Claude Code (CLI) timezone (Tokyo by default).
 #
 # Claude Code is a Node process: it reports the OS timezone (via the TZ env var)
 # in its system prompt. This installs a `claude` wrapper in your shell profile
-# so `claude` runs with TZ set to a US zone, while the REST of your shell keeps
+# so `claude` runs with TZ set to the chosen zone, while the rest of your shell keeps
 # its real timezone.
 #
 # Usage:
-#   ./install.sh [IANA_TIMEZONE]     # default: America/Los_Angeles
-#   ./install.sh America/New_York
+#   ./install.sh [IANA_TIMEZONE]     # default: Asia/Tokyo
+#   ./install.sh Asia/Tokyo
 #
 # Supports zsh (macOS default), bash, and fish, on macOS / Linux / WSL.
 # Re-running is safe (it replaces the previous block). To undo, delete the
 # marked block from your profile, or run ./uninstall.sh.
 set -eu
 
-TZNAME="${1:-America/Los_Angeles}"
+TZNAME="${1:-Asia/Tokyo}"
+# Keep legacy marker text so existing installations are replaced cleanly.
 MARK_BEGIN="# >>> notme: force US timezone for Claude Code >>>"
 MARK_END="# <<< notme: force US timezone for Claude Code <<<"
 

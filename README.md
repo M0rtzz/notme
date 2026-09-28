@@ -165,7 +165,7 @@ Useful public checks:
 The extension above spoofs your **browser's** timezone. **Claude Code** in the
 terminal is a different process that reports the **OS timezone** (via the `TZ`
 env var) in its system prompt — a browser extension can't touch it. To present a
-US timezone to Claude Code, add a `claude` wrapper with the scripts in
+Tokyo timezone (`Asia/Tokyo`, UTC+09:00) to Claude Code, add a `claude` wrapper with the scripts in
 [`tools/claude-tz/`](./tools/claude-tz/):
 
 ```bash
@@ -175,7 +175,7 @@ cd tools/claude-tz && bash install.sh          # macOS / Linux / WSL (zsh/bash/f
 
 It wraps only the `claude` command, leaving the rest of your shell alone. See
 [tools/claude-tz/README.md](./tools/claude-tz/README.md) for per-shell snippets,
-other US zones, and the caveat (it changes the reported timezone, not your exit
+other timezones, and the caveat (it changes the reported timezone, not your exit
 IP). Which channel you need:
 
 | You use | Timezone from | Fix |

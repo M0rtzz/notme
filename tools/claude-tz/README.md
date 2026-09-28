@@ -6,8 +6,9 @@ in the terminal — that's a Node process that reports the **OS timezone** (via 
 `TZ` environment variable) in its system prompt.
 
 These scripts add a small `claude` wrapper to your shell profile so that every
-`claude` launch runs with `TZ` set to a US zone, while the rest of your shell
-keeps its real timezone.
+`claude` launch runs with `TZ` set to `Asia/Tokyo` (Japan Standard Time, UTC+09:00)
+by default, while the rest of your shell keeps its real timezone. You can pass
+another IANA timezone to the installer if needed.
 
 > **Two separate channels — don't mix them up:**
 > | You use | Timezone comes from | Fix with |
@@ -21,8 +22,9 @@ keeps its real timezone.
 
 ```bash
 cd tools/claude-tz
-bash install.sh                    # default America/Los_Angeles
-bash install.sh America/New_York   # or pick another US zone
+bash install.sh                    # default Asia/Tokyo
+# Or specify the timezone explicitly:
+bash install.sh Asia/Tokyo
 ```
 
 Then open a **new terminal** (or `source ~/.zshrc`). Undo with `bash uninstall.sh`.
@@ -31,8 +33,9 @@ Then open a **new terminal** (or `source ~/.zshrc`). Undo with `bash uninstall.s
 
 ```powershell
 cd tools\claude-tz
-powershell -ExecutionPolicy Bypass -File .\install.ps1
-powershell -ExecutionPolicy Bypass -File .\install.ps1 America/New_York
+powershell -ExecutionPolicy Bypass -File .\install.ps1  # default Asia/Tokyo
+# Or specify the timezone explicitly:
+powershell -ExecutionPolicy Bypass -File .\install.ps1 Asia/Tokyo
 ```
 
 Then open a **new PowerShell** (or `. $PROFILE`).
@@ -42,14 +45,14 @@ Then open a **new PowerShell** (or `. $PROFILE`).
 **zsh** — `~/.zshrc`, **bash** — `~/.bashrc`:
 
 ```bash
-export NOTME_CLAUDE_TZ="America/Los_Angeles"
+export NOTME_CLAUDE_TZ="Asia/Tokyo"
 claude() { TZ="$NOTME_CLAUDE_TZ" command claude "$@"; }
 ```
 
 **fish** — `~/.config/fish/config.fish`:
 
 ```fish
-set -gx NOTME_CLAUDE_TZ "America/Los_Angeles"
+set -gx NOTME_CLAUDE_TZ "Asia/Tokyo"
 function claude
     env TZ=$NOTME_CLAUDE_TZ command claude $argv
 end
@@ -58,7 +61,7 @@ end
 **PowerShell** — `$PROFILE`:
 
 ```powershell
-$env:NOTME_CLAUDE_TZ = "America/Los_Angeles"
+$env:NOTME_CLAUDE_TZ = "Asia/Tokyo"
 function claude {
     $exe = (Get-Command claude -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1).Source
     $prev = $env:TZ
@@ -70,23 +73,24 @@ function claude {
 **Windows cmd.exe** (per-launch only — cmd has no clean profile hook):
 
 ```cmd
-set TZ=America/Los_Angeles && claude
+set TZ=Asia/Tokyo && claude
 ```
 
-## Common US timezones
+## Common timezones
 
 | Region | IANA |
 | --- | --- |
-| Pacific | `America/Los_Angeles` |
-| Mountain | `America/Denver` |
-| Central | `America/Chicago` |
-| Eastern | `America/New_York` |
+| Tokyo, Japan (default) | `Asia/Tokyo` |
+| US Pacific | `America/Los_Angeles` |
+| US Mountain | `America/Denver` |
+| US Central | `America/Chicago` |
+| US Eastern | `America/New_York` |
 
 ## Verify
 
 ```bash
-TZ=America/Los_Angeles node -e "console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)"
-# -> America/Los_Angeles
+TZ=Asia/Tokyo node -e "console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)"
+# -> Asia/Tokyo
 ```
 
 `TZ` must be set **before** the process starts (the wrapper does this), and needs
